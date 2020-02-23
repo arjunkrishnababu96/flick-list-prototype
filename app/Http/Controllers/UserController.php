@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,12 +17,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        // $movies = [];
         $movies = [
             'Gone with the wind',
             'Vertigo',
             'Pride & Prejudice',
         ];
+        // $movies = [];
 
         // $movies = "hello";
 
