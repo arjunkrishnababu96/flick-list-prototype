@@ -19,6 +19,8 @@ class CreateMovieUserTable extends Migration
             $table->unsignedBigInteger('movie_id');
             $table->boolean('watched')->default(false);
             $table->timestamps();
+
+            $table->index(['user_id', 'movie_id']); // so that there's only one (movie, user) combination
         });
     }
 
