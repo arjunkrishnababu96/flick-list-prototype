@@ -23,7 +23,7 @@ class CreateMovieUserTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('movie_id')->references('id')->on('movies')->onDelete('cascade');
 
-            $table->index(['user_id', 'movie_id']); // so that there's only one (movie, user) combination
+            $table->unique(['user_id', 'movie_id']); // so that there's only one (movie, user) combination
         });
     }
 
