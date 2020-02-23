@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Movie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MovieUserController extends Controller
 {
@@ -38,7 +40,14 @@ class MovieUserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        DB::transaction(function () use ($request) {
+            $movie = Movie::firstOrCreate([
+                'title' => $request->title,
+            ]);
+
+            auth()->user()->movies()->save($movie);
+        });
+        return back();
     }
 
     /**
