@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Movie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\QueryException;
 
 class MovieUserController extends Controller
 {
@@ -45,7 +46,14 @@ class MovieUserController extends Controller
                 'title' => $request->title,
             ]);
 
-            auth()->user()->movies()->save($movie);
+            try {
+                auth()->user()->movies()->save($movie);
+            } catch (QueryException $ex) {
+                // dd($ex);
+                // tends to happen is the unique(movie, unique) gets violated
+                // needs to be made more graceful
+            }
+
         });
         return back();
     }
