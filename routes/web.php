@@ -19,4 +19,5 @@ Auth::routes();
 
 Route::get('/home', 'UserController@index');
 Route::get('/movies', 'MovieController@index');
+Route::post('/add-movie', 'MovieUserController@store');
 // Route::get('/home', 'HomeController@index')->name('home');
