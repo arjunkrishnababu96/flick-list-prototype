@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Movie;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -17,11 +18,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $movies = [
-            'Gone with the wind',
-            'Vertigo',
-            'Pride & Prejudice',
-        ];
+        $movies = auth()->user()->movies;
+        // dd($movies);
         // $movies = [];
 
         // $movies = "hello";
