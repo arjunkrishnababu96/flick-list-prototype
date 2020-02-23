@@ -9,6 +9,11 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-md-8">
+            <form action="/add-movie" method="post" class="form-inline">
+                <input type="text" class="form-control mb-2 mr-sm-2" name="title" placeholder="Movie title" required>
+                <button type="submit" class="btn btn-outline-primary btn-small mb-2">Submit</button>
+            </form>
+
             @empty($movies)
                 <p>No movies in your list!</p>
             @else
