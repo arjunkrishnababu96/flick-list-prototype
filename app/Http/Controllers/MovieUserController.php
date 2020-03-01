@@ -91,7 +91,8 @@ class MovieUserController extends Controller
     {
         // TODO: validate request
 
-        auth()->user()->movies()->updateExistingPivot($request->movie_id, ['watched' => true]);
+        // dd(! $request->watched);
+        auth()->user()->movies()->updateExistingPivot($request->movie_id, ['watched' => !$request->watched ]);
         return back();
     }
 

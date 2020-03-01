@@ -24,6 +24,7 @@
                         <form action="/movieuser/update" method="post">
                         @csrf
                             <input type="hidden" name="movie_id" value="{{ $movie->id }}">
+                            <input type="hidden" name="watched" value="{{ $movie->pivot->watched }}">
                             {{ $movie->title }}
                             @if ($movie->release_year)
                                 ({{ $movie->release_year }})
