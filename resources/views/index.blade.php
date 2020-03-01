@@ -23,14 +23,12 @@
                     <li>
                         <form action="/movieuser/update" method="post">
                             @csrf
-                            <input type="hidden" name="movie_id" value="{{ $movie->id }}">
-                            <input type="hidden" name="watched" value="{{ $movie->pivot->watched }}">
                             {{ $movie->title }}
                             @if ($movie->release_year)
                                 ({{ $movie->release_year }})
-                            @endunless
-                            {{ $movie->pivot->watched }}
-                            {{ $movie->id }}
+                            @endif
+                            <input type="hidden" name="movie_id" value="{{ $movie->id }}">
+                            <input type="hidden" name="watched" value="{{ $movie->pivot->watched }}">
                             <button type="submit" class="btn btn-outline-primary btn-sm">Watched</button>
                         </form>
                     </li>
@@ -46,10 +44,8 @@
                                 {{ $movie->title }}
                                 @if ($movie->release_year)
                                     ({{ $movie->release_year }})
-                                @endunless
-                                {{ $movie->pivot->watched }}
+                                @endif
                             </span>
-
                             <input type="hidden" name="movie_id" value="{{ $movie->id }}">
                             <input type="hidden" name="watched" value="{{ $movie->pivot->watched }}">
                             <button type="submit" class="btn btn-outline-primary btn-sm">Not watched</button>
