@@ -23,13 +23,13 @@
                     <li>
                         <form action="/movieuser/update" method="post">
                             @csrf
+                            <input type="checkbox" onchange="this.form.submit()" {{ $movie->pivot->watched ? 'checked' : '' }}>
                             {{ $movie->title }}
                             @if ($movie->release_year)
                                 ({{ $movie->release_year }})
                             @endif
                             <input type="hidden" name="movie_id" value="{{ $movie->id }}">
                             <input type="hidden" name="watched" value="{{ $movie->pivot->watched }}">
-                            <button type="submit" class="btn btn-outline-primary btn-sm">Watched</button>
                         </form>
                     </li>
                 @endforeach
@@ -39,7 +39,8 @@
                 @foreach ($movies->where('pivot.watched',true)->sortBy('pivot.updated_at') as $movie)
                     <li>
                         <form action="/movieuser/update" method="post">
-                                @csrf
+                            @csrf
+                            <input type="checkbox" onchange="this.form.submit()" {{ $movie->pivot->watched ? 'checked' : '' }}>
                             <span class="watched">
                                 {{ $movie->title }}
                                 @if ($movie->release_year)
@@ -48,7 +49,6 @@
                             </span>
                             <input type="hidden" name="movie_id" value="{{ $movie->id }}">
                             <input type="hidden" name="watched" value="{{ $movie->pivot->watched }}">
-                            <button type="submit" class="btn btn-outline-primary btn-sm">Not watched</button>
                         </form>
                     </li>
                 @endforeach
