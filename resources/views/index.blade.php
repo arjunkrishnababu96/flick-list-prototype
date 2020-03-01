@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <h1>Your Movies</h1>
+            <h1>Your Movies ({{count($movies)}}) </h1>
         </div>
     </div>
     <div class="row justify-content-center">
@@ -18,6 +18,7 @@
             @empty($movies)
                 <p>No movies in your list!</p>
             @else
+                <h4>Yet to watch ({{ count($movies->where('pivot.watched',false)) }})</h4>
                 <ul class="movielist">
                 @foreach ($movies->where('pivot.watched',false)->sortBy('pivot.created_at') as $movie)
                     <li>
@@ -35,6 +36,7 @@
                 @endforeach
                 </ul>
 
+                <h4>Already watched ({{ count($movies->where('pivot.watched',true)) }})</h4>
                 <ul class="movielist">
                 @foreach ($movies->where('pivot.watched',true)->sortBy('pivot.updated_at') as $movie)
                     <li>
