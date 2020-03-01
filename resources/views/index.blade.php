@@ -20,7 +20,12 @@
             @else
                 <ul>
                 @foreach ($movies as $movie)
-                    <li>{{ $movie }}</li>
+                    <li>
+                        {{ $movie->title }}
+                        @if ($movie->release_year)
+                            ({{ $movie->release_year }})
+                        @endunless
+                    </li>
                 @endforeach
                 </ul>
             @endempty
