@@ -19,13 +19,27 @@
                 <p>No movies in your list!</p>
             @else
                 <ul>
-                @foreach ($movies as $movie)
+                @foreach ($movies->where('pivot.watched',false) as $movie)
                     <li>
                         {{ $movie->title }}
                         @if ($movie->release_year)
                             ({{ $movie->release_year }})
                         @endunless
                         {{ $movie->pivot->watched }}
+                    </li>
+                @endforeach
+                </ul>
+
+                <ul>
+                @foreach ($movies->where('pivot.watched',true) as $movie)
+                    <li>
+                        <span class="watched">
+                            {{ $movie->title }}
+                            @if ($movie->release_year)
+                                ({{ $movie->release_year }})
+                            @endunless
+                            {{ $movie->pivot->watched }}
+                        </span>
                     </li>
                 @endforeach
                 </ul>
