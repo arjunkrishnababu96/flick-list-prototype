@@ -22,7 +22,7 @@
                 @foreach ($movies->where('pivot.watched',false) as $movie)
                     <li>
                         <form action="/movieuser/update" method="post">
-                        @csrf
+                            @csrf
                             <input type="hidden" name="movie_id" value="{{ $movie->id }}">
                             <input type="hidden" name="watched" value="{{ $movie->pivot->watched }}">
                             {{ $movie->title }}
@@ -40,13 +40,20 @@
                 <ul>
                 @foreach ($movies->where('pivot.watched',true) as $movie)
                     <li>
-                        <span class="watched">
-                            {{ $movie->title }}
-                            @if ($movie->release_year)
-                                ({{ $movie->release_year }})
-                            @endunless
-                            {{ $movie->pivot->watched }}
-                        </span>
+                        <form action="/movieuser/update" method="post">
+                                @csrf
+                            <span class="watched">
+                                {{ $movie->title }}
+                                @if ($movie->release_year)
+                                    ({{ $movie->release_year }})
+                                @endunless
+                                {{ $movie->pivot->watched }}
+                            </span>
+
+                            <input type="hidden" name="movie_id" value="{{ $movie->id }}">
+                            <input type="hidden" name="watched" value="{{ $movie->pivot->watched }}">
+                            <button type="submit" class="btn btn-outline-primary btn-sm">Not watched</button>
+                        </form>
                     </li>
                 @endforeach
                 </ul>
