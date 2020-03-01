@@ -18,14 +18,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $movies = auth()->user()->movies;
-        // dd($movies);
-        // $movies = [];
-
-        // $movies = "hello";
-
         return view('index', [
-            'movies' => $movies,
+            'movies' => auth()->user()->movies,
         ]);
     }
 
