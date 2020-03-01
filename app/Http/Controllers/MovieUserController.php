@@ -87,9 +87,12 @@ class MovieUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        // TODO: validate request
+
+        auth()->user()->movies()->updateExistingPivot($request->movie_id, ['watched' => true]);
+        return back();
     }
 
     /**
