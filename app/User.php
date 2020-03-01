@@ -38,6 +38,6 @@ class User extends Authenticatable
     ];
 
     public function movies() {
-        return $this->belongsToMany('App\Movie')->withTimestamps();
+        return $this->belongsToMany('App\Movie')->withTimestamps()->withPivot('watched');
     }
 }

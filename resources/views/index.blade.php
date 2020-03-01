@@ -25,6 +25,7 @@
                         @if ($movie->release_year)
                             ({{ $movie->release_year }})
                         @endunless
+                        {{ $movie->pivot->watched }}
                     </li>
                 @endforeach
                 </ul>
