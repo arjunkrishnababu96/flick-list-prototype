@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Movie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\QueryException;
 
-class UserController extends Controller
+class MovieUserController extends Controller
 {
-    public function __construct() {
+
+    public function __construct()   {
         $this->middleware('auth');
     }
-
     /**
      * Display a listing of the resource.
      *
@@ -18,15 +20,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $movies = auth()->user()->movies;
-        // dd($movies);
-        // $movies = [];
-
-        // $movies = "hello";
-
-        return view('index', [
-            'movies' => $movies,
-        ]);
+        //
     }
 
     /**
@@ -47,7 +41,21 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        DB::transaction(function () use ($request) {
+            $movie = Movie::firstOrCreate([
+                'title' => $request->title,
+            ]);
+
+            try {
+                auth()->user()->movies()->save($movie);
+            } catch (QueryException $ex) {
+                // dd($ex);
+                // tends to happen is the unique(movie, unique) gets violated
+                // needs to be made more graceful
+            }
+
+        });
+        return back();
     }
 
     /**
@@ -79,9 +87,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        // TODO: validate request
+
+        // dd(! $request->watched);
+        auth()->user()->movies()->updateExistingPivot($request->movie_id, ['watched' => !$request->watched ]);
+        return back();
     }
 
     /**
