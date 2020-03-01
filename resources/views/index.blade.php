@@ -18,7 +18,7 @@
             @empty($movies)
                 <p>No movies in your list!</p>
             @else
-                <ul>
+                <ul class="movielist">
                 @foreach ($movies->where('pivot.watched',false)->sortBy('pivot.created_at') as $movie)
                     <li>
                         <form action="/movieuser/update" method="post">
@@ -35,7 +35,7 @@
                 @endforeach
                 </ul>
 
-                <ul>
+                <ul class="movielist">
                 @foreach ($movies->where('pivot.watched',true)->sortBy('pivot.updated_at') as $movie)
                     <li>
                         <form action="/movieuser/update" method="post">
